@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyAppWeb.Models;
+using MyApp.Models;
 
-namespace MyAppWeb.Data
+namespace MyAppWeb.DataAccessLayer
 {
     public class ApplicationDbContext:DbContext
     {

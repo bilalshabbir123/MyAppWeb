@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MyAppWeb.Models
+namespace MyApp.Models
 {
     public class Category
     {
@@ -10,6 +10,6 @@ namespace MyAppWeb.Models
         public string? Name { get; set; }
         [Required]
         public int DisplayOrder { get; set; }
-        public DateTime CreatedDateTime { get; set; }=DateTime.Now;
+        public DateTime CreatedDateTime { get; set; } = DateTime.Now;
     }
 }
