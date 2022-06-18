@@ -1,0 +1,29 @@
+﻿@model MyApp.Models.ViewModels.CategoryVM
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-3">
+            <h2 class="text-primary">@((Model.Category==null||Model.Category.Id==0)?"Create":"Update")Category</h2>
+            <hr />
+        </div>
+        <div class="row mb-3">
+            <lable asp-for="CategoryVM.Name"></lable>
+            <input asp-for="CategoryVM.Name" class="form-control"/>
+            <span asp-validation-for="CategoryVM.Name" class="text-danger"></span>
+        </div> 
+        <div class="row mb-3">
+            <lable asp-for="CategoryVM.DisplayOrder"></lable>
+            <input asp-for="CategoryVM.DisplayOrder" class="form-control"/>
+             <span asp-validation-for="CategoryVM.DisplayOrder" class="text-danger"></span> 
+        </div>
+        @if (Model.Category.Id==null||Model.Category.Id==0)
+        {
+            <button class="btn btn-primary" type="submit">Create</button>
+        }
+        else
+        {
+             <button class="btn btn-primary" type="submit">Update</button>
+        }
+    </div>
+    <a asp-action="Index" asp-controller="Category">Back To List</a>
+</form>
