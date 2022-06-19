@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MyApp.DataAccessLayer.Infrastructure.IRepository;
 using MyApp.Models;
 using MyApp.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MyAppWeb.Areas.Admin.Controllers
 {
@@ -27,8 +29,8 @@ namespace MyAppWeb.Areas.Admin.Controllers
             ProductVM vm = new ProductVM()
             {
                 Product=new(),
-                Categories=_unitOfWork.Category.GetAll().Select(x=>
-                new System.Web.Mvc.SelectListItem()
+                Categories = _unitOfWork.Category.GetAll().Select(x =>
+                new SelectListItem()
                 {
                     Text=x.Name,
                     Value=x.Id.ToString()
