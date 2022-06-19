@@ -6,51 +6,43 @@ using MyApp.Models.ViewModels;
 namespace MyAppWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryController : Controller
+    public class ProductController : Controller
     {
         private IUnitOfWork _unitOfWork;
 
-        public CategoryController(IUnitOfWork unitOfWork)
+        public ProductController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork; 
         }
 
         public IActionResult Index()
         {
-            CategoryVM categoryVM = new CategoryVM();
-            categoryVM.categories = _unitOfWork.Category.GetAll();
-            return View(categoryVM);
+            ProductVM productVM = new ProductVM();
+            productVM.Products = _unitOfWork.Product.GetAll();
+            return View(productVM);
         }
-        //[HttpGet]
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Create(Category category)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _unitOfWork.Category.Add(category);
-        //        _unitOfWork.Save();
-        //        TempData["Succcess"] = "Category Created Done!";
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View();
-        //}
         [HttpGet]
         public IActionResult CreateUpdate(int? id)
         {
-            CategoryVM vm = new CategoryVM();
+            ProductVM vm = new ProductVM()
+            {
+                Product=new(),
+                Categories=_unitOfWork.Category.GetAll().Select(x=>
+                new System.Web.Mvc.SelectListItem()
+                {
+                    Text=x.Name,
+                    Value=x.Id.ToString()
+                })
+
+            };
             if (id == null || id == 0)
             {
                 return View(vm);
             }
             else
             {
-               vm.Category = _unitOfWork.Category.GetT(x => x.Id == id);
-                if (vm.Category == null)
+               vm.Product = _unitOfWork.Product.GetT(x => x.Id == id);
+                if (vm.Product == null)
                 {
                     return NotFound();
                 }
