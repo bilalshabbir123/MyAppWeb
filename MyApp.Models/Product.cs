@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,10 +17,11 @@ namespace MyApp.Models
         public string Description { get; set; }
         [Required]
         public double Price { get; set; }
-        [Required]
+        [ValidateNever]
         public string ImageUrl { get; set; }
 
         public int CategoryId { get; set; }
+        [ValidateNever]
         public Category Category { get; set; }
     }
 }

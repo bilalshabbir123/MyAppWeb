@@ -21,24 +21,7 @@ namespace MyAppWeb.Areas.Admin.Controllers
             categoryVM.categories = _unitOfWork.Category.GetAll();
             return View(categoryVM);
         }
-        //[HttpGet]
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Create(Category category)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _unitOfWork.Category.Add(category);
-        //        _unitOfWork.Save();
-        //        TempData["Succcess"] = "Category Created Done!";
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View();
-        //}
+       
         [HttpGet]
         public IActionResult CreateUpdate(int? id)
         {
