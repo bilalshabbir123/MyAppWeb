@@ -92,39 +92,38 @@ namespace MyAppWeb.Areas.Admin.Controllers
                     _unitOfWork.Product.Add(vm.Product);
                     TempData["Succcess"] = "Product Created Done!";
                 }
+                else
+                {
+                    _unitOfWork.Product.Update(vm.Product);
+                    TempData["Succcess"] = "Product Created Done!";
+                }
                 _unitOfWork.Save();
                
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
         }
-        //[HttpGet]
-        //public IActionResult Delete(int? id)
-        //{
-        //    if (id == null || id == 0)
-        //    {
-        //        return NotFound();
-        //    }
-        //    var category = _unitOfWork.Category.GetT(x => x.Id == id);
-        //    if (category == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(category);
-        //}
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult DeleteData(int? id)
-        //{
-        //    var category = _unitOfWork.Category.GetT(x => x.Id == id);
-        //    if (category == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    _unitOfWork.Category.Delete(category);
-        //    _unitOfWork.Save();
-        //    TempData["Succcess"] = "Category Deleted Done!";
-        //    return RedirectToAction("Index");
-        //}
+        #region DeleteAPICALL
+        [HttpDelete]
+        public IActionResult Delete(int? id)
+        {
+            var product = _unitOfWork.Product.GetT(x => x.Id == id);
+            if (product == null)
+            {
+                return Json(new { success = false, message = "Error in Fetching Data" });
+            }
+            else
+            {
+                var oldImagePath = Path.Combine(_hostEnvironment.WebRootPath, product.ImageUrl.TrimStart('\\'));
+                if (System.IO.File.Exists(oldImagePath))
+                {
+                    System.IO.File.Delete(oldImagePath);
+                }
+                _unitOfWork.Product.Delete(product);
+                _unitOfWork.Save();
+                return Json(new { success=true,message="Product Deleted"});
+            }
+        }
+        #endregion
     }
 }
