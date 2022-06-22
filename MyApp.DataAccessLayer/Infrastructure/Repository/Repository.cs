@@ -17,7 +17,6 @@ namespace MyApp.DataAccessLayer.Infrastructure.Repository
         public Repository(ApplicationDbContext context)
         {
             _context = context;
-            //_context.Products.Include(x => x.Category);
             _dbSet = _context.Set<T>();
         }
          
